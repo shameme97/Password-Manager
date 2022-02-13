@@ -84,8 +84,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String registerUser(String username, String password) {
-        User user = new User(username, password);
+    public String registerUser(User user) {
         userRepository.insert(user);
         return user.getUsername() + " registered successfully.";
     }

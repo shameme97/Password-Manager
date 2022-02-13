@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>demo</artifactId>
+	<artifactId>password_manager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Password_Saver</name>
+	<name>password_manager</name>
 	<description>Password Saver using Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>

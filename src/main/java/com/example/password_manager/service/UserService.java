@@ -10,6 +10,6 @@ public interface UserService {
     public String addWebCredentials(User user, WebCredentials webCredential);
     public String deleteWebCredentials(User user, WebCredentials webCredential);
     public String updateWebCredentials(User user, WebCredentials webCredential);
-    public String registerUser(String username, String password);
+    public String registerUser(User user);
     public Boolean loginAuthentication(User user);
 }

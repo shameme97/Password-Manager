@@ -14,10 +14,12 @@ public class User {
     @Id
     private String username;
     private String password;
+    private String email;
     private ArrayList<WebCredentials> webCredentials = new ArrayList<WebCredentials>();
 
-    public User(String username, String password){
+    public User(String username, String password, String email){
         this.username = username;
         this.password = password;
+        this.email = email;
     }
 }

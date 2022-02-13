@@ -1,10 +1,13 @@
 package com.example.password_manager.controller;
 
-import com.example.password_saver.service.UserService;
+import com.example.password_manager.model.User;
+import com.example.password_manager.model.WebCredentials;
+import com.example.password_manager.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -13,4 +16,25 @@ public class UserController {
 
     @Autowired
     public UserService userService;
+
+    @GetMapping(value = "/{username}/all")
+    public List<WebCredentials> getAllWebCredentials(@PathVariable("username") User user){
+        return userService.getAllWebCredentials(user);
+    }
+
+    @PostMapping(value = "/{username}/add")
+    public String addWebCredentials(@PathVariable("username") User user, WebCredentials webCredential){
+        return userService.addWebCredentials(user, webCredential);
+    }
+
+    @PostMapping(value = "/register")
+    public String registerUser(@RequestBody User user){
+        return userService.registerUser(user);
+    }
+
+    @GetMapping(value = "/login")
+    public String userLogin(@RequestBody User user){
+        Boolean login = userService.loginAuthentication(user);
+        return ((login) ? "Login Successful" : "User not found") ;
+    }
 }
