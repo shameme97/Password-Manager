@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping
+//@RequestMapping
 public class UserController {
 
     @Autowired
@@ -23,8 +23,18 @@ public class UserController {
     }
 
     @PostMapping(value = "/{username}/add")
-    public String addWebCredentials(@PathVariable("username") User user, WebCredentials webCredential){
+    public String addWebCredentials(@PathVariable("username") User user,@RequestBody WebCredentials webCredential){
         return userService.addWebCredentials(user, webCredential);
+    }
+
+    @DeleteMapping(value = "/{username}/delete")
+    public String deleteWebCredentials(@PathVariable("username") User user,@RequestBody WebCredentials webCredential){
+        return userService.deleteWebCredentials(user, webCredential);
+    }
+
+    @PutMapping(value = "/{username}/update")
+    public String updateWebCredentials(@PathVariable("username") User user,@RequestBody WebCredentials webCredential){
+        return userService.updateWebCredentials(user, webCredential);
     }
 
     @PostMapping(value = "/register")

@@ -1,19 +1,24 @@
 package com.example.password_manager.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+//import javax.validation.constraints.Email;
+//import javax.validation.constraints.NotEmpty;
+
+//import org.hibernate.validator.constraints.Email;
+
 import java.util.ArrayList;
 
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 @Document(collection = "user")
 public class User {
     @Id
     private String username;
     private String password;
+//    @Email
     private String email;
     private ArrayList<WebCredentials> webCredentials = new ArrayList<WebCredentials>();
 
