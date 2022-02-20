@@ -4,6 +4,7 @@ import com.example.password_manager.model.User;
 import com.example.password_manager.model.WebCredentials;
 import com.example.password_manager.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class UserServiceImpl implements UserService{
 

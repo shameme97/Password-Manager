@@ -1,6 +1,8 @@
 package com.example.password_manager.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -26,5 +28,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+
     }
+
 }
