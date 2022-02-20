@@ -4,18 +4,23 @@ import com.example.password_manager.model.User;
 import com.example.password_manager.model.WebCredentials;
 import com.example.password_manager.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class UserServiceImpl implements UserService{
 
     @Autowired
     public UserRepository userRepository;
+
 
     @Override
     public List<WebCredentials> getAllWebCredentials(User user) {
@@ -42,6 +47,7 @@ public class UserServiceImpl implements UserService{
         User foundUser = optionalUser.orElse(null);
         if (foundUser != null) {
             foundUser.getWebCredentials().add(webCredential);
+            userRepository.save(foundUser);
         } else {
             return "User not found!";
         }
@@ -54,6 +60,7 @@ public class UserServiceImpl implements UserService{
         User foundUser = optionalUser.orElse(null);
         if (foundUser != null){
             foundUser.getWebCredentials().remove(webCredential);
+            userRepository.save(foundUser);
         } else{
             return "User not found!";
         }
@@ -84,8 +91,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String registerUser(String username, String password) {
-        User user = new User(username, password);
+    public String registerUser(User user) {
+//        user.setPassword(encryptPassword(user.getPassword()));
         userRepository.insert(user);
         return user.getUsername() + " registered successfully.";
     }
@@ -100,4 +107,14 @@ public class UserServiceImpl implements UserService{
             return false;
         }
     }
+
+//    public String encryptPassword(String password){
+//        return null;
+//    }
+//
+//    public String decryptPassword(String password){
+//        return null;
+//    }
+
+
 }

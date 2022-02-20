@@ -52,8 +52,6 @@
 					</excludes>
 				</configuration>
 			</plugin>
-
-
 		</plugins>
 	</build>
 
