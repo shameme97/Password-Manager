@@ -12,4 +12,5 @@ public interface UserService {
     public String updateWebCredentials(User user, WebCredentials webCredential);
     public String registerUser(User user);
     public Boolean loginAuthentication(User user);
+    public List<WebCredentials> searchWebCredentials(User user, String string);
 }
