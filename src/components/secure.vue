@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Password Manager</h1>
+
     <div class="newadd">
       <input class="addInput" type="text" v-model="value" placeholder="Website URL" />
       <input class="addInput" type="text" v-model="value2" placeholder="Username" />
@@ -16,6 +17,18 @@
       >
         ADD
       </button>
+
+      <div class="topnav">
+        <input type="text" v-model="search" placeholder="Search" />
+        <button class="searchButton" v-on:click="searchItems(search)">
+          <i class="fa fa-search"></i>
+        </button>
+        &nbsp;
+        <button class="searchButton" v-on:click="fetchItems()">
+          <i class="fa fa-arrow-left"></i>
+        </button>
+        <br />
+      </div>
     </div>
 
     <table>
@@ -192,6 +205,23 @@ export default {
       });
     },
 
+    searchItems(search) {
+      let uri = "http://localhost:4023/search/";
+
+      uri =
+        uri +
+        this.$parent.infoAccount.username +
+        "/" +
+        this.$parent.infoAccount.password +
+        "/" +
+        this.$parent.infoAccount.email +
+        "/" +
+        search;
+      this.axios.get(uri).then((response) => {
+        this.items = response.data;
+      });
+    },
+
     visibility() {
       if (this.vsblt == true) {
         this.vsblt = false;
@@ -204,5 +234,5 @@ export default {
 </script>
 
 <style>
-@import "../assets/SecureStyle.css";
+@import "../assets/style.css";
 </style>
