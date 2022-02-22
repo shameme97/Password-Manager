@@ -4,7 +4,7 @@ table
     display: flex;
     flex-flow: column;
     height: 400px;
-    width: 80%;
+    width: 90%;
     border: 1px;
     border-collapse: collapse;
     margin: 25px 0;
@@ -16,7 +16,7 @@ table
 }
 table thead {
     flex: 0 0 auto;
-    width: calc(100% - 0.9em);
+    width: calc(100% );
 }
 table tbody {
     flex: 1 1 auto;
@@ -24,6 +24,11 @@ table tbody {
     overflow-y: scroll;
     background-color: whitesmoke;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
 table tbody tr {
     width: 100%;
 }
@@ -165,19 +170,18 @@ button:active
 #nav
 {
     margin-left:100%;
+    padding: 1% 2%;
     font-size: 18px;
-    border: 3px solid rgb(3, 4, 78);
     width: 55px;
-    background-color: white;
+    background-color: transparent;
 
 }
 
 h1 {
   text-align: center;
-  font-family: "Trebuchet MS", sans-serif;
+  font-family: "Arial", sans-serif;
   font-size: 2em;
   letter-spacing: -2px;
-  border-bottom: 2px solid black;
   text-transform: uppercase;
  }
  

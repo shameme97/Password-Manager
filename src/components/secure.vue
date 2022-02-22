@@ -204,5 +204,5 @@ export default {
 </script>
 
 <style>
-@import "../assets/SecureStyle.css";
+@import "../assets/style.css";
 </style>
