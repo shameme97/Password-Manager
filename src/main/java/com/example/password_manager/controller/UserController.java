@@ -4,32 +4,46 @@ import com.example.password_manager.model.User;
 import com.example.password_manager.model.WebCredentials;
 import com.example.password_manager.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@CrossOrigin(origins = "http://localhost:8081")
+@Slf4j
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @AllArgsConstructor
-//@RequestMapping("/api")
+
+
 public class UserController {
 
     @Autowired
     public UserService userService;
 
-    @GetMapping(value = "/{username}/all")
-    public List<WebCredentials> getAllWebCredentials(@PathVariable("username") User user){
+    @GetMapping(value = "/all/{username}/{password}/{email}")
+    public List<WebCredentials> getAllWebCredentials(@PathVariable("username") String username,
+                                                     @PathVariable("password") String password,
+                                                     @PathVariable("password") String email){
+        User user = new User(username,password,email);
         return userService.getAllWebCredentials(user);
     }
 
-    @PostMapping(value = "/{username}/add")
-    public String addWebCredentials(@PathVariable("username") User user,@RequestBody WebCredentials webCredential){
+    @PostMapping(value = "/add/{username}/{password}/{email}")
+    public String addWebCredentials(@PathVariable("username") String username,
+                                    @PathVariable("password") String password,
+                                    @PathVariable("password") String email,
+                                    @RequestBody WebCredentials webCredential){
+        User user = new User(username,password,email);
         return userService.addWebCredentials(user, webCredential);
     }
 
-    @DeleteMapping(value = "/{username}/delete")
-    public String deleteWebCredentials(@PathVariable("username") User user,@RequestBody WebCredentials webCredential){
+    @DeleteMapping(value = "/delete/{username}/{password}/{email}")
+    public String deleteWebCredentials(@PathVariable("username") String username,
+                                       @PathVariable("password") String password,
+                                       @PathVariable("password") String email,
+                                       @RequestBody WebCredentials webCredential){
+        User user = new User(username,password,email);
         return userService.deleteWebCredentials(user, webCredential);
     }
 
@@ -43,9 +57,11 @@ public class UserController {
         return userService.registerUser(user);
     }
 
-    @GetMapping(value = "/login")
-    public String userLogin(@RequestBody User user){
+    @PostMapping(value = "/login")
+    public Boolean userLogin(@RequestBody User user){
         Boolean login = userService.loginAuthentication(user);
-        return ((login) ? "Login Successful" : "User not found") ;
+//        log.info("Login status - {}", login);
+//        return ((login) ? "Login Successful" : "User not found") ;
+        return login;
     }
 }
