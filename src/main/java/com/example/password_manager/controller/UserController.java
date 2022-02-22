@@ -24,7 +24,7 @@ public class UserController {
     @GetMapping(value = "/all/{username}/{password}/{email}")
     public List<WebCredentials> getAllWebCredentials(@PathVariable("username") String username,
                                                      @PathVariable("password") String password,
-                                                     @PathVariable("password") String email){
+                                                     @PathVariable("email") String email){
         User user = new User(username,password,email);
         return userService.getAllWebCredentials(user);
     }
@@ -47,8 +47,12 @@ public class UserController {
         return userService.deleteWebCredentials(user, webCredential);
     }
 
-    @PutMapping(value = "/{username}/update")
-    public String updateWebCredentials(@PathVariable("username") User user,@RequestBody WebCredentials webCredential){
+    @PutMapping(value = "/update/{username}/{password}/{email}")
+    public String updateWebCredentials(@PathVariable("username") String username,
+                                       @PathVariable("password") String password,
+                                       @PathVariable("password") String email,
+                                       @RequestBody WebCredentials webCredential){
+        User user = new User(username,password,email);
         return userService.updateWebCredentials(user, webCredential);
     }
 
@@ -63,5 +67,14 @@ public class UserController {
 //        log.info("Login status - {}", login);
 //        return ((login) ? "Login Successful" : "User not found") ;
         return login;
+    }
+
+    @GetMapping(value = "/search/{username}/{password}/{email}/{string}")
+    public List<WebCredentials> searchWebCredentials(@PathVariable("username") String username,
+                                                     @PathVariable("password") String password,
+                                                     @PathVariable("email") String email,
+                                                     @PathVariable("string") String string){
+        User user = new User(username,password,email);
+        return userService.searchWebCredentials(user, string);
     }
 }

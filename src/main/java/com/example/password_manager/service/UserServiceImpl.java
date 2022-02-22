@@ -7,9 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +55,7 @@ public class UserServiceImpl implements UserService{
         Optional<User> optionalUser = userRepository.findById(user.getUsername());
         User foundUser = optionalUser.orElse(null);
         if (foundUser != null){
-            log.info("Found: {}", webCredential);
+//            log.info("Found: {}", webCredential);
             foundUser.getWebCredentials().remove(webCredential);
             userRepository.save(foundUser);
         } else{
@@ -66,18 +68,16 @@ public class UserServiceImpl implements UserService{
     public String updateWebCredentials(User user, WebCredentials webCredential) {
         Optional<User> optionalUser = userRepository.findById(user.getUsername());
         User foundUser = optionalUser.orElse(null);
+//        log.info("Found: {}",foundUser);
         if (foundUser != null){
-            if (webCredential.getWebsite() != null){
-                int index = foundUser.getWebCredentials().indexOf(webCredential);
-                foundUser.getWebCredentials().get(index).setWebsite(webCredential.getWebsite());
-            }
-            if (webCredential.getWebsiteUsername() != null){
-                int index = foundUser.getWebCredentials().indexOf(webCredential);
-                foundUser.getWebCredentials().get(index).setWebsiteUsername(webCredential.getWebsiteUsername());
-            }
-            if (webCredential.getWebsitePassword() != null){
-                int index = foundUser.getWebCredentials().indexOf(webCredential);
-                foundUser.getWebCredentials().get(index).setWebsitePassword(webCredential.getWebsitePassword());
+            List <WebCredentials> listOfWebCredentials = foundUser.getWebCredentials();
+            for (WebCredentials cred: listOfWebCredentials){
+                if (cred.getWebsite().equals(webCredential.getWebsite())
+                        && cred.getWebsiteUsername().equals(webCredential.getWebsiteUsername())
+                        && cred.getWebsiteEmail().equals(webCredential.getWebsiteEmail())){
+                    cred.setWebsitePassword(webCredential.getWebsitePassword());
+                    userRepository.save(foundUser);
+                }
             }
         } else{
             return "User not found!";
@@ -109,7 +109,26 @@ public class UserServiceImpl implements UserService{
         }
     }
 
-
+    @Override
+    public List<WebCredentials> searchWebCredentials(User user, String string) {
+        Optional<User> optionalUser = userRepository.findById(user.getUsername());
+        User foundUser = optionalUser.orElse(null);
+        if (foundUser != null) {
+            List<WebCredentials> listOfWebCredentials = foundUser.getWebCredentials();
+            ArrayList<WebCredentials> matchedCredentials = new ArrayList<>();
+//            log.info("Searched: {}", string);
+            for (WebCredentials cred : listOfWebCredentials) {
+                if (cred.getWebsite().equals(string)
+                        || cred.getWebsiteUsername().equals(string)
+                        || cred.getWebsiteEmail().equals(string)
+                        || cred.getWebsitePassword().equals(string)) {
+                    matchedCredentials.add(cred);
+                }
+            }
+            return matchedCredentials;
+        }
+        return null;
+    }
 
 
     public String encryptPassword(String password){
