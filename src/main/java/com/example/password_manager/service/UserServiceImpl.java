@@ -4,8 +4,8 @@ import com.example.password_manager.model.User;
 import com.example.password_manager.model.WebCredentials;
 import com.example.password_manager.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,6 @@ public class UserServiceImpl implements UserService{
     @Autowired
     public UserRepository userRepository;
 
-
     @Override
     public List<WebCredentials> getAllWebCredentials(User user) {
         Optional<User> optionalUser = userRepository.findById(user.getUsername());
@@ -29,12 +28,7 @@ public class UserServiceImpl implements UserService{
         if (foundUser != null){
             List<WebCredentials> webCredentialsList = foundUser.getWebCredentials();
             if (webCredentialsList.size() != 0){
-//                String credentials = "";
-//                for (WebCredentials webCredentials: webCredentialsList){
-//                    credentials += webCredentials.getWebsite() +" "+ webCredentials.getWebsiteUsername()
-//                            + " " + webCredentials.getWebsitePassword();
-//                }
-//                return credentials;
+//                log.info("Web Credentials list: {}", webCredentialsList);
                 return webCredentialsList;
             }
         }
@@ -59,6 +53,7 @@ public class UserServiceImpl implements UserService{
         Optional<User> optionalUser = userRepository.findById(user.getUsername());
         User foundUser = optionalUser.orElse(null);
         if (foundUser != null){
+            log.info("Found: {}", webCredential);
             foundUser.getWebCredentials().remove(webCredential);
             userRepository.save(foundUser);
         } else{
@@ -90,31 +85,41 @@ public class UserServiceImpl implements UserService{
         return "Updated successfully";
     }
 
+    @SneakyThrows
     @Override
     public String registerUser(User user) {
-//        user.setPassword(encryptPassword(user.getPassword()));
+        user.setPassword(encryptPassword(user.getPassword()));
         userRepository.insert(user);
         return user.getUsername() + " registered successfully.";
     }
 
+
+    @SneakyThrows
     @Override
     public Boolean loginAuthentication(User user) {
         Optional<User> optionalUser = userRepository.findById(user.getUsername());
         User foundUser = optionalUser.orElse(null);
+
         if (foundUser != null){
-            return user.getPassword().equals(foundUser.getPassword());
+            String decrypt = decryptPassword(foundUser.getPassword());
+            log.info("password - {}, got password - {} - {}", user.getPassword(), foundUser.getPassword());
+            return user.getPassword().equals(decrypt);
         }else{
             return false;
         }
     }
 
-//    public String encryptPassword(String password){
-//        return null;
-//    }
-//
-//    public String decryptPassword(String password){
-//        return null;
-//    }
+
+
+
+    public String encryptPassword(String password){
+
+        return password;
+    }
+
+    public String decryptPassword(String password){
+        return password;
+    }
 
 
 }
