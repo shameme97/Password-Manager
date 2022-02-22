@@ -1,0 +1,186 @@
+
+table 
+{
+    display: flex;
+    flex-flow: column;
+    height: 400px;
+    width: 80%;
+    border: 1px;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin-left:auto;margin-right:auto;
+}
+table thead {
+    flex: 0 0 auto;
+    width: calc(100% - 0.9em);
+}
+table tbody {
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
+    background-color: whitesmoke;
+}
+table tbody tr {
+    width: 100%;
+}
+table thead, table tbody tr {
+    display: table;
+    table-layout: fixed;
+}
+table thead tr {
+    background-color: #0C343D;
+    color: #ffffff;
+    text-align: left;
+}
+td {
+    padding: 12px 15px;
+}
+tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+.newadd
+{
+    width: 80%;
+    margin-left:auto;margin-right:auto;margin-top:5%;
+    text-align: center;
+}
+
+button {
+  display: inline-block;
+  padding: 5px 5px;
+  font-size: 10px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px #999;
+}
+
+button:hover {background-color: black}
+
+button:active 
+{
+  background-color: #111111;
+  box-shadow: 0 px #666;
+  transform: translateY(4px);
+}
+
+.bt4
+{
+      background-color: #0077ff;
+}
+
+.bt2
+{
+      background-color: #c4c721;
+}
+
+.bt3
+{
+      background-color: #cc0000;
+}
+
+.addButton{
+  background-color: #081e81;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin-left:auto;margin-right:auto;
+}
+
+#login {
+
+        border-radius: 10px;
+        width: 500px;
+        background-color: #ffffff;
+        margin: auto;
+        margin-top: 120px;
+        padding: 20px;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    }
+
+ 
+.loginInput[type=text] , .loginInput[type=password]{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+.loginInput[type=text]:focus , .loginInput[type=password]:focus{
+  border: 3px solid #555;
+}
+
+.loginInput[type=text] , .loginInput[type=email]{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+.addInput[type=text]{
+  width: 22%;
+  padding: 10px 10px;
+  margin: 2px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+
+.bt1
+{
+  background-color: #081e81;
+  color: white;
+  padding: 15px 19%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left:auto;margin-right:auto;
+
+}
+
+#nav
+{
+    margin-left:100%;
+    font-size: 18px;
+    border: 3px solid rgb(3, 4, 78);
+    width: 55px;
+    background-color: white;
+
+}
+
+h1 {
+  text-align: center;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 2em;
+  letter-spacing: -2px;
+  border-bottom: 2px solid black;
+  text-transform: uppercase;
+ }
+ 
+ body{
+  background-image: url("abc.png");
+ }
